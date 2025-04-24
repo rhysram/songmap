@@ -84,7 +84,7 @@ function makeResponsiveEmbed(content) {
   if (match) {
     // Create a wrapper for the iframe
     const wrapper = `<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;"><iframe src="${match[1]}" frameborder="0" style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe></div>`;
-    return wrapper;
+    return `<div class="popup-content">${wrapper}</div>`; // Wrap it with class for additional styling
   }
-  return content; // return the original content if no iframe found
+  return `<div class="popup-content">${content}</div>`; // Return the description if no iframe found
 }
