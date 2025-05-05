@@ -1,7 +1,54 @@
+// menu / sidebar code
+// MY ORIGINAL CODE:
+
+var menuIcon = document.getElementById('menuIcon');
+
+document.getElementById("menuIcon").onclick = openNav;
+function openNav() {
+  if (window.innerWidth <= 800) {
+    document.getElementById("nav").style.height = "9em"
+    document.getElementById("main").style.marginTop = "21%";
+    document.getElementById("main").style.height = "77%"
+  }else{
+    document.getElementById("nav").style.width = "20%"
+    document.getElementById("main").style.marginLeft = "20%";
+    document.getElementById("main").style.width = "78%"
+  }
+  document.querySelectorAll(".link").forEach(link => {
+    link.style.display = "block";
+  });
+  document.getElementById("closeIcon").style.display = "block";
+  document.getElementById("menuIcon").style.display = "none";
+}
+
+document.getElementById("closeIcon").onclick = closeNav;
+function closeNav() {
+  if (window.innerWidth<= 800){
+    document.getElementById("nav").style.height = "0";
+    document.getElementById("main").style.marginTop = "0";
+    document.getElementById("main").style.height = "100%";
+
+  }else{
+    document.getElementById("nav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    document.getElementById("main").style.width = "100%";
+  }
+  document.querySelectorAll(".link").forEach(link => {
+    link.style.display = "none";
+  });
+  document.getElementById("closeIcon").style.display = "none";
+  document.getElementById("menuIcon").style.display = "inline-block";
+}
+
+// end my code
+
+// MAP CODE CREDIT: https://leafletjs.com/examples/quick-start/  https://leafletjs.com/examples/accessibility/ //
+// FIREBASE CREDIT: https://firebase.google.com/docs/web/setup //
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-// Firebase config
+//got from firebase site
 const firebaseConfig = {
   apiKey: "AIzaSyAqMK5Z15KAxy3VM47xbb-26BRnfkZxMMY",
   authDomain: "song-map-4fd56.firebaseapp.com",
@@ -15,76 +62,71 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const pinsRef = collection(db, "mapPins");
 
-// Initialize Leaflet map
-const map = L.map('map').setView([40.7128, -74.006], 13);
+//got from leaflet
+var map = L.map('map').setView([40.7128, -74.006], 13);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors'
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-// Store markers
+
+var customIcon = L.icon({
+  iconUrl: 'images/marker.png',
+  iconSize: [30, 40],
+  iconAnchor: [15, 39],
+  popupAnchor: [-10, -30]
+  });
+
 let allMarkers = [];
 
-// Load existing pins
-const loadPins = async () => {
-  const snapshot = await getDocs(pinsRef);
+//load in the pins, from leaflet site
+var loadPins = async () => {
+  var snapshot = await getDocs(pinsRef);
   snapshot.forEach(doc => {
-    const { lat, lng, content } = doc.data();
-    const marker = L.marker([lat, lng]).addTo(map);
+    var { lat, lng, content } = doc.data();
+    var marker = L.marker([lat, lng], {icon: customIcon}).addTo(map);
     marker.bindPopup(content);
     allMarkers.push(marker);
   });
 };
 loadPins();
 
-// Add pin on map click
+//from leaflet:
 map.on('click', (e) => {
-  const { lat, lng } = e.latlng;
+  var { lat, lng } = e.latlng;
 
-  const formHtml = `
+  var formHtml = `
     <form id="pin-form">
-      <textarea id="description" rows="4" placeholder="Add a description or embed iframe..."></textarea><br/>
+      <textarea id="description" rows="4" placeholder="Embed a song and add a description..."></textarea><br/>
       <button type="submit">Add Pin</button>
     </form>
   `;
 
-  const popup = L.popup()
+  var popup = L.popup()
     .setLatLng([lat, lng])
     .setContent(formHtml)
     .openOn(map);
 
-  setTimeout(() => {
-    const form = document.getElementById('pin-form');
-    if (!form) return;
+    var form = document.getElementById('pin-form');
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      const desc = document.getElementById('description').value;
+      var desc = document.getElementById('description').value;
 
-      const marker = L.marker([lat, lng]).addTo(map);
-      marker.bindPopup(makeResponsiveEmbed(desc)).openPopup();
+      var marker = L.marker([lat, lng], {icon: customIcon}).addTo(map);
+      {alt: userEmbed(desc)}
+      marker.bindPopup(userEmbed(desc)).openPopup();
 
       allMarkers.push(marker);
       map.closePopup();
 
-      try {
-        await addDoc(pinsRef, { lat, lng, content: desc });
-      } catch (err) {
-        console.error("Error saving pin:", err);
-      }
+      addDoc(pinsRef, { lat, lng, content: desc });
     });
-  }, 100);
 });
 
-// Function to make iframe content responsive
-function makeResponsiveEmbed(content) {
-  const iframeRegex = /<iframe[^>]+src="([^"]+)"/;
-  const match = content.match(iframeRegex);
-  
-  if (match) {
-    // Create a wrapper for the iframe
-    const wrapper = `<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;"><iframe src="${match[1]}" frameborder="0" style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe></div>`;
-    return `<div class="popup-content">${wrapper}</div>`; // Wrap it with class for additional styling
-  }
-  return `<div class="popup-content">${content}</div>`; // Return the description if no iframe found
+function userEmbed(content) {
+  var iframeRegex = /<iframe[^>]+src="([^"]+)"/;
 }
+
+// END CREDIT //

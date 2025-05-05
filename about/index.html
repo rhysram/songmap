@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About & Credits</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" type="image/png" href="../images/icon.png">
+</head>
+<body>
+  <img src="../images/menu-svgrepo-com.svg" width="55px" id="menuIcon" onclick="openNav()">
+  <div id="nav">
+    <a href="javascript:void(0)" id="closeIcon" onclick="closeNav()">&times;</a>
+    <a href="../index.html" class="link">map</a>
+    <a href="../add_a_pin/index.html" class="link">how to add a song</a>
+    <p class="link" style="color: #e9b1b1">about & credits</p>
+  </div>
+
+  <main id="main" style="Grid-area:main;">
+    <h1>mapping music</h1>
+    <div id="aboutPage">
+      <div id="paragraphs" style="Grid-area:p">
+        <article>
+        <h2>about</h2>
+        <p>music is tied to our cherished spaces and memories. whether a song reminds you of home, your favorite person, the worst time in your life or the best, music brings us to a time and place. on “mapping music”, you can share those memories, as well as explore others’ nearby (and across the world).</p>
+        <br><p>“mapping music” was made as my final project in <a href="https://cs.nyu.edu/courses/spring25/CSCI-UA.0004-004/common-syllabus/">“intro to web design”</a> at NYU. It was inspired by <a href="https://www.queeringthemap.com/">queering the map</a>, a site where users can pin their queer memories on a map. </p>
+       </article>
+       <article>
+        <br><h2>code</h2>
+        <p>The map data is from OpenStreetMap and presented by <a href="https://leafletjs.com/">Leaflet</a>, which I learned how to use in a prior JavaScript class, but solidified my code using their <a href="https://leafletjs.com/examples/quick-start/">quick start guide</a>. I’m using <a href="https://firebase.google.com/">Google Firebase</a> to store the pin data, and learned how to implement that into my map <a href="https://firebase.google.com/docs/web/setup">here</a>. All credit is properly listed within the JavaScript file as well. </p>
+        <br><p>All credit is given in my JavaScript and CSS files.
+          All other HTML, CSS and JavaScript was written by me, including text, images, semantic elements, grids & flexboxes, menu bar styling and DOM queries, functions, and @media queries.</p>
+        </article>
+        </div>
+      <div id="aboutImages" style="Grid-area:img">
+        <img srcset="../images/queeringthe_1.png 600w, ../images/queeringthe.png 1952w" sizes="600px, 1952px" alt="An image of the site 'Queering the Map', which has hundreds, if not thousands of pins scattered across the USA" style="Grid-area:img; width:70%">
+        <p class="caption">queering the map is full of pins!</p>
+      </div>
+  </div>
+</main>
+<script type="module" src="../script.js"></script>
+</body>
+</html>

@@ -1,13 +1,277 @@
-#map {
-  width: 100%;
-  height: 100vh;
+/* mobile view */
+@media only screen and (max-width: 800px) {
+  body{
+    width: 100%;
+    height: 100%;
+    Display: grid;
+          grid-template-columns:100%;
+          Grid-template-rows: 3% auto;
+          gap: 1em;
+          Grid-template-areas: 
+              "nav"
+              "main";
+  }
+
+    #aboutPage{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .info{
+    padding-top: 1%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #menuIcon {
+    position: absolute;
+    display: inline-block;
+    right: 0%;
+    top: 1%;
+    margin-right: 1%;
+  }
+
+  #nav {
+    height: 0;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding-top: 0px;
+    transition: height 0.5s ease;
+  }
+
+  #main {
+    transition: margin-top 0.5s;
+    position:relative;
+  }
+
+}
+/* sidebar & columns view (desktop) */
+@media only screen and (min-width: 800px) {
+  body{
+    width: 100%;
+    height: 100%;
+    Display: grid;
+          grid-template-columns:3% auto;
+          Grid-template-rows: 100%;
+          gap: 1em;
+          Grid-template-areas: 
+              "nav main";
+  }
+
+  #aboutPage{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    Display: grid;
+          grid-template-columns:60% auto;
+          Grid-template-rows: 100%;
+          gap: 4%;
+          Grid-template-areas: 
+              "p img";
+  }
+
+  .info{
+    padding-top: 1%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    Display: grid;
+          grid-template-columns:auto 40% auto;
+          Grid-template-rows: 100%;
+          gap: 3%;
+          Grid-template-areas: 
+              "chunk1 chunk2 chunk3";
+  }
+
+  #menuIcon {
+    position: absolute;
+    top: 1%;
+    margin-left: 1%;
+  }
+
+  #nav {
+    height: 100%;
+    width: 0;
+    position: fixed; 
+    z-index: 1;
+    top: 0;
+    left: 0;
+    padding-top: 60px;
+    transition: 0.5s;
+  }
 }
 
+@media (prefers-color-scheme: light) {
+  body{
+    background-color:#fffaf5
+  }
+  .chunk1,.chunk2,.chunk3{
+    background-color: #fef2e7;
+  }
+  #nav{
+    background-color: #C96868;
+  }
+  h1, h2, p, .caption{
+    color:#C96868;
+  }
+  #paragraphs a {
+    text-decoration: none;
+    color: #8486f0;
+  }
+  #paragraphs a:hover {
+    color: #d58ffb;
+  }
+  #paragraphs a:active {
+    color: #fd9aff;
+  }
+  #aboutImages .caption{
+    color:#e29696;
+  }
+}
+@media (prefers-color-scheme: dark) {
+body{
+  background-color:#3b2f2f
+}
+.chunk1,.chunk2,.chunk3{
+  background-color: #493a3a;
+}
+#nav{
+  background-color: #734e4e;
+}
+h1, h2{
+  color:#df7777;
+}
+p, .caption{
+  color:#e49494;
+}
+#paragraphs a {
+  text-decoration: none;
+  color: #b3a5ec;
+}
+#paragraphs a:hover {
+  color: #e8a7ff;
+}
+#paragraphs a:active {
+  color: #ff86ef;
+}
+#aboutImages .caption{
+  color:#aa7272
+}
+}
+
+/* applies to all:  */
+html {
+  width: 99%;
+  height: 98%;
+  margin: 0;
+  padding: 0;
+}
+
+#aboutPage img{
+  padding-top: 10%;
+}
+#aboutPage .caption{
+  margin-top: 1em;
+  text-align: center;
+  transform: translate(-15%);
+}
+
+.chunk1, .chunk2, .chunk3 {
+  text-align: center;
+  width:95%;
+  padding-left:3%;
+  padding-right:auto;
+  display:flex;
+  flex-direction: column;
+}
+
+#nav .link {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #fffaf5;
+  display: none;
+  transition: 0.3s;
+}
+
+#nav .link:hover {
+  color: #FADFA1;
+}
+#nav .link:active {
+  color: #a8dbff;
+}
+
+#paragraphs{
+  text-transform: lowercase;
+}
+
+p {
+  margin: 0;
+}
+
+#nav #closeIcon {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #fffaf5;
+  transition: 0.3s;
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#closeIcon {
+  display: none;
+}
+
+@font-face {
+  font-family: "font";
+  src:
+    local("LibreCaslonText"),
+    url("LibreCaslonText-Regular.ttf") format("opentype");
+}
+@font-face {
+  font-family: "font";
+  src:
+    local("LibreCaslonText"),
+    url("LibreCaslonText-Bold.ttf") format("opentype");
+    font-weight: bold;
+}
+
+h1{
+  font-size:35px;
+  text-align: center;
+}
+h1, h2, p{
+  font-family:'font', 'georgia', 'Times New Roman', Times, serif;
+}
+
+.caption{
+  font-family:'font', 'georgia', 'Times New Roman', Times, serif;
+  font-size:16px;
+  text-align: center;
+}
+
+#main {
+  width: 100%;
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+#map {
+  width: 95%;
+  height: 80%;
+}
+/* a mix of Leaflet's and my own CSS:  */
 
 .popup-content iframe {
-  max-width: 100%;
-  width: 100%;
-  height: 300px;  /* You can adjust this value to match your needs */
+  width: 1000px;
+  height: 300px;
   border: none;
 }
 
@@ -16,3 +280,9 @@
   word-wrap: break-word;
   word-break: break-word;
 }
+
+.leaflet-popup-content {
+  width: 400px;
+}
+
+/* end credit */

@@ -3,14 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Interactive Map with Firebase</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <title>Mapping Music</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="images/icon.png">
 </head>
 <body>
-  <div id="map" style="height: 780px;"></div>
+  <img src="images/menu-svgrepo-com.svg" width="55px" id="menuIcon" onclick="openNav()">
+  <div id="nav">
+    <a href="javascript:void(0)" id="closeIcon" onclick="closeNav()">&times;</a>
+    <p class="link" style="color: #e9b1b1">map</p>
+    <a href="add_a_pin/index.html" class="link">how to add a song</a>
+    <a href="about/index.html" class="link">about & credits</a>
+  </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script type="module" src="script.js"></script>
+  <main id="main" style="Grid-area:main;">
+    <h1>mapping music</h1>
+    <div id="map"></div>
+    <script type="module" src="script.js"></script>
+    <footer><p class="caption" style="padding-top:1em;">tip: refresh your page after adding a pin!</p></footer>
+  </main>
 </body>
 </html>
